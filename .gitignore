@@ -1,0 +1,17 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Secret credentials and tokens
+credentials.json
+token.json
+
+# IDE / OS specific
+.DS_Store
+.vscode/

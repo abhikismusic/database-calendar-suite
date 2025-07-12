@@ -1,0 +1,120 @@
+<!-- FILE: templates/index.html (v4.0 - Phoenix Release) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Calendar Suite</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="calendar-tabs">
+            <button class="tab-btn active" data-type="text_prompt">Text Prompt</button>
+            <button class="tab-btn" data-type="edit_prompt">Edit Prompt</button>
+            <button class="tab-btn" data-type="video_prompt">Video Prompt</button>
+            <button class="tab-btn" data-type="audio_prompt">Audio Prompt</button>
+        </div>
+        <header class="app-header">
+            <h1 id="calendar-title" class="glow">TEXT PROMPT CALENDAR</h1>
+            <div class="controls">
+                <button id="upload-btn" class="control-btn">Upload CSV</button>
+                <button id="gdrive-btn" class="control-btn">GDrive Folder</button>
+                <button id="refresh-btn" class="control-btn">Refresh</button>
+                <button id="settings-btn" class="control-btn icon-btn" title="Settings">⚙︎</button>
+            </div>
+        </header>
+        <!-- Add this after the <header> section -->
+        <div class="search-bar-container">
+            <input type="search" id="search-bar" placeholder="Filter prompts by keyword...">
+        </div>
+        <div class="view-switcher">
+            <button class="view-btn active" data-view="month">Month</button>
+            <button class="view-btn" data-view="year">Year</button>
+        </div>
+        <div id="calendar-controls">
+            <button id="prev-month-btn"><</button>
+            <h2 id="month-year"></h2>
+            <button id="next-month-btn">></button>
+        </div>
+        <div id="calendar-grid"></div>
+        <div class="color-legend">
+            <span class="legend-item"><span class="legend-color-box magenta"></span>Standard</span>
+            <span class="legend-item"><span class="legend-color-box cyan"></span>Distributed</span>
+            <span class="legend-item"><span class="legend-color-box red"></span>No Data</span>
+            <div class="delete-controls">
+                <button id="delete-month-btn" class="control-btn delete-btn" title="Delete This Month's Data">︎ Month</button>
+                <button id="delete-year-btn" class="control-btn delete-btn" title="Delete This Year's Data">︎ Year</button>
+            </div>
+        </div>
+    </div>
+    
+    <input type="file" id="csv-upload-input" accept=".csv" multiple style="display: none;">
+    <div id="loader" class="hidden"></div>
+
+    <div id="prompt-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">×</button>
+            <h3 id="modal-date"></h3>
+            <div id="modal-body"></div>
+            <div class="modal-footer">
+                <button id="download-csv-btn" class="control-btn">Download CSV</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="date-range-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">×</button>
+            <h3>Assign Date Range</h3>
+            <p>This CSV has no timestamps. Select a date range to assign these prompts.</p>
+            <form id="date-range-form">
+                <div class="form-group">
+                    <label for="start-date">Start Date</label>
+                    <input type="date" id="start-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="end-date">End Date</label>
+                    <input type="date" id="end-date" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="control-btn">Assign & Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">×</button>
+            <h3>Application Settings</h3>
+            <div class="settings-section">
+                <h4>Data & Logs</h4>
+                <button id="access-log-btn" class="control-btn settings-btn">Access Historical Log</button>
+                <button id="delete-all-btn" class="control-btn delete-btn settings-btn">Delete All App Data</button>
+            </div>
+            <div class="settings-section">
+                <h4>Authentication</h4>
+                <button id="logout-btn" class="control-btn settings-btn">Log Out</button>
+            </div>
+            <div class="settings-section manual">
+                <h4>User Manual</h4>
+                <h5>How to run this app locally on Mac:</h5>
+                <ol>
+                    <li>Install Python 3 and VS Code.</li>
+                    <li>Download the project folder.</li>
+                    <li>Open a terminal in the folder and run: <code>python3 -m venv venv</code></li>
+                    <li>Activate the environment: <code>source venv/bin/activate</code></li>
+                    <li>Install libraries: <code>pip install -r requirements.txt</code></li>
+                    <li>Run the app: <code>python app.py</code></li>
+                    <li>Follow browser prompts to authorize Google Drive & Sheets access.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer class="version-info">App Version: {{ version }}</footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
