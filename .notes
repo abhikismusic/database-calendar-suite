@@ -1,0 +1,5 @@
+Make your code changes.
+Open the terminal in your project folder.
+Add the changed files: git add .
+Commit the changes with a message: git commit -m "Add new feature or fix bug"
+Push the commit to GitHub: git push
